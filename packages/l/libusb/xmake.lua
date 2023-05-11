@@ -9,11 +9,11 @@ package("libusb")
         end})
         add_versions("v1.0.24", "620CEC4DBE4868202949294157DA5ADB75C9FBB4F04266146FC833EEF85F90FB")
     else
-        add_urls("https://github.com/libusb/libusb/releases/download/$(version).tar.bz2", {version = function (version)
-            return version .. "/libusb-" .. (version:gsub("v", ""))
-        end})
+        -- add_urls("https://github.com/libusb/libusb/releases/download/$(version).tar.bz2", {version = function (version)
+        --     return version .. "/libusb-" .. (version:gsub("v", ""))
+        -- end})
         add_urls("https://github.com/libusb/libusb.git")
-        add_versions("v1.0.24", "7efd2685f7b327326dcfb85cee426d9b871fd70e22caa15bb68d595ce2a2b12a")
+        add_versions("2023.05.11", "07441f54244991af55df158b61fd69ca95b39662")
     end
 
     if is_plat("macosx", "linux") then
@@ -39,13 +39,21 @@ package("libusb")
 
     on_install("windows", function (package)
         import("core.tool.toolchain")
-        local vsversion = toolchain.load("msvc"):config("vs") or "2019"
-        local solutionFiles = {
-            "libusb_" .. vsversion .. ".sln",
-            "libusb_2019.sln",
-            "libusb_2017.sln",
-            "libusb_2015.sln",
-        }
+  
+        -- Convert vs_toolset to shortname
+        -- 14.35.32215 -> v143
+        local vs_toolset = toolchain.load("msvc"):config("vs_toolset"):gsub("%.", "")
+        vs_toolset = "v" .. string.sub(vs_toolset, 0,3)
+
+        local vsversion = toolchain.load("msvc"):config("vs") or "2022"
+        -- local solutionFiles = {
+        --     "libusb_" .. vsversion .. ".sln",
+        --     "libusb_2019.sln",
+        --     "libusb_2017.sln",
+        --     "libusb_2015.sln",
+        -- }
+
+        local solutionFiles ={ "libusb.sln"}
 
         local solutionFile
         local oldir = os.cd("msvc")
@@ -69,7 +77,8 @@ package("libusb")
             os.vcp(path.join(arch, mode, "dll/libusb-1.0.dll"), package:installdir("lib"))
             os.vcp(path.join(arch, mode, "dll/libusb-1.0.lib"), package:installdir("lib"))
         else
-            os.vcp(path.join(arch, mode, "lib/libusb-1.0.lib"), package:installdir("lib"))
+            print(path.join("build", vs_toolset, arch, mode, "lib/libusb-1.0.lib"))
+            os.vcp(path.join("build",vs_toolset, arch, mode, "lib/libusb-1.0.lib"), package:installdir("lib"))
         end
     end)
 
