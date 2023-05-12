@@ -34,6 +34,7 @@ package("libfreenect")
         local configs = {}
         table.insert(configs, "-DBUILD_EXAMPLES=OFF")
         table.insert(configs, "-DBUILD_CV=" .. (package:config("opencv") and "ON" or "OFF"))
+        table.insert(configs, "-DBUILD_C_SYNC=" .. (package:config("sync_api") and "ON" or "OFF"))
         table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:debug() and "Debug" or "Release"))
         table.insert(configs, "-DBUILD_SHARED_LIBS=" .. (package:config("shared") and "ON" or "OFF"))
 
