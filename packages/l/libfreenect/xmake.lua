@@ -1,6 +1,6 @@
 package("libfreenect")
     set_homepage("https://github.com/OpenKinect/libfreenect")
-    set_description("Open source drivers for the Kinect for Windows v2 device")
+    set_description("Drivers and libraries for the Xbox Kinect device on Windows, Linux, and OS X")
     set_license("GPL-2.0")
 
     add_urls("https://github.com/OpenKinect/libfreenect.git")
