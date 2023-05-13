@@ -6,6 +6,7 @@ package("opencv")
 
     add_urls("https://github.com/opencv/opencv/archive/$(version).tar.gz",
              "https://github.com/opencv/opencv.git")
+    add_versions("4.7.0", "8df0079cdbe179748a18d44731af62a245a45ebf5085223dc03133954c662973")
     add_versions("4.6.0", "1ec1cba65f9f20fe5a41fda1586e01c70ea0c9a6d7b67c9e13edf0cfe2239277")
     add_versions("4.5.5", "a1cfdcf6619387ca9e232687504da996aaa9f7b5689986b8331ec02cb61d28ad")
     add_versions("4.5.4", "c20bb83dd790fc69df9f105477e24267706715a9d3c705ca1e7f613c7b3bad3d")
