@@ -7,7 +7,7 @@ package("clblast")
     add_versions("1.5.3", "8d4fc4716e5ac4fe2f5a292cca42395cda1a47d60b7a350fd59f31b5905c2df6")
 
 
-    add_configs("tuners", { description = "Enable compilation of the tuners", default = true, type = "boolean" })
+    add_configs("tuners", { description = "Enable compilation of the tuners", default = false, type = "boolean" })
     add_configs("workaround", { description = "Enables workaround for bug in AMD Southern Island GPUs", default = false, type = "boolean" })
     add_configs("verbose", { description = "Compile in verbose mode for additional diagnostic messages", default = false, type = "boolean" })
     add_configs("opencl", { description = "Build CLBlast with an OpenCL API", default = true, type = "boolean" })
@@ -40,6 +40,8 @@ package("clblast")
 
         table.insert(configs, "-DCMAKE_BUILD_TYPE=" .. (package:debug() and "Debug" or "Release"))
         table.insert(configs, "-DBUILD_SHARED_LIBS=" .. (package:config("shared") and "ON" or "OFF"))
+
+        table.insert(configs, "-DTUNERS=" .. (package:config("tuners") and "ON" or "OFF"))
 
         table.insert(configs, "-DVERBOSE=" .. (package:config("verbose") and "ON" or "OFF"))
         table.insert(configs, "-DAMD_SI_EMPTY_KERNEL_WORKAROUND=" .. (package:config("workaround") and "ON" or "OFF"))
