@@ -4,7 +4,7 @@ package("clblast")
     set_license("Apache-2.0")
 
     add_urls("https://github.com/CNugteren/CLBlast/archive/$(version).tar.gz", "https://github.com/CNugteren/CLBlast.git")
-    add_versions("1.5.3", "8d4fc4716e5ac4fe2f5a292cca42395cda1a47d60b7a350fd59f31b5905c2df6")
+    add_versions("1.6.0", "9bff8219f753262e2c3bb38eb74264dce8772f626ed59d0765851a4269532888")
 
 
     add_configs("tuners", { description = "Enable compilation of the tuners", default = false, type = "boolean" })
@@ -30,7 +30,7 @@ package("clblast")
         end
     end)
 
-    on_install(function (package) 
+    on_install("windows", "macsox", "linux", "android", function (package) 
         local configs = {}
 
         local vs_runtime = package:config("vs_runtime") 
@@ -42,7 +42,6 @@ package("clblast")
         table.insert(configs, "-DBUILD_SHARED_LIBS=" .. (package:config("shared") and "ON" or "OFF"))
 
         table.insert(configs, "-DTUNERS=" .. (package:config("tuners") and "ON" or "OFF"))
-
         table.insert(configs, "-DVERBOSE=" .. (package:config("verbose") and "ON" or "OFF"))
         table.insert(configs, "-DAMD_SI_EMPTY_KERNEL_WORKAROUND=" .. (package:config("workaround") and "ON" or "OFF"))
 
@@ -53,4 +52,3 @@ package("clblast")
         table.insert(configs, "-DNETLIB_PERSISTENT_OPENCL=" .. (package:config("cuda") and "ON" or "OFF"))
         import("package.tools.cmake").install(package, configs)
     end)
-
