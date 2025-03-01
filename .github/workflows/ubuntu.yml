@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - dev
+  push:
 
 jobs:
   build:
@@ -32,6 +33,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y libgl1-mesa-dev libglu1-mesa-dev p7zip gobjc gcc g++
 
+      - name: Setup Cosmocc
+        uses: bjia56/setup-cosmocc@main
+        with:
+          version: "4.0.2"
+
       - name: Tests
         run: |
-          xmake l ./scripts/test.lua -D -k ${{ matrix.kind }} -m ${{ matrix.mode }}
+          xmake l ./scripts/test.lua -D -k ${{ matrix.kind }} -m ${{ matrix.mode }} --toolchain=cosmocc --configs={cosmocc=true}
