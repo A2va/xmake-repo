@@ -81,11 +81,12 @@ package("tbox")
             configs.cosmocc = true
         end
         -- linux/x86_64/debug
-        local p = path.join(package:cachedir(), "linux", "x86_64", "debug")
-        print("TBOX CACHEDIR", os.files(p))
+       
         import("package.tools.xmake").install(package, configs)
-        print("TBOX INSTALLDIR", os.files(package:installdir("lib")))
-        print("TBOX INSTALLDIR", os.files(package:installdir("include")))
+         local p = path.join(package:cachedir(), "linux", "x86_64", "debug")
+        print("TBOX CACHEDIR", os.files(p))
+        print("TBOX LIBDIR", os.files(package:installdir("lib")))
+        print("TBOX INCLUDEDIR", os.files(package:installdir("include")))
     end)
 
     on_test(function (package)
