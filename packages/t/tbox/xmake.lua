@@ -81,6 +81,7 @@ package("tbox")
             configs.cosmocc = true
         end
         import("package.tools.xmake").install(package, configs)
+        print("TBOX INSTALLDIR", os.files(package:installdir("lib")))
     end)
 
     on_test(function (package)
