@@ -80,8 +80,12 @@ package("tbox")
         if package:config("cosmocc") or get_config("toolchain") == "cosmocc" then
             configs.cosmocc = true
         end
+        -- linux/x86_64/debug
+        local p = path.join(package:cachedir(), "linux", "x86_64", "debug")
+        print("TBOX CACHEDIR", os.files(p))
         import("package.tools.xmake").install(package, configs)
         print("TBOX INSTALLDIR", os.files(package:installdir("lib")))
+        print("TBOX INSTALLDIR", os.files(package:installdir("include")))
     end)
 
     on_test(function (package)
