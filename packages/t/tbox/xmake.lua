@@ -83,10 +83,10 @@ package("tbox")
         -- linux/x86_64/debug
        
         import("package.tools.xmake").install(package, configs)
-         local p = path.join(package:cachedir(), "linux", "x86_64", "debug")
+         local p = path.join(package:cachedir(), "linux", "x86_64", "debug", "*")
         print("TBOX CACHEDIR", os.files(p))
-        print("TBOX LIBDIR", os.files(package:installdir("lib")))
-        print("TBOX INCLUDEDIR", os.files(package:installdir("include")))
+        print("TBOX LIBDIR", os.files(path.join(package:installdir("lib"), "*")))
+        print("TBOX INCLUDEDIR", os.files(path.join(package:installdir("include"), "*")))
     end)
 
     on_test(function (package)
