@@ -47,5 +47,5 @@ jobs:
       - name: Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: cachedir
-          path: /home/runner/cachedir.zip
+          name: cachedir.${{ matrix.kind }}.${{ matrix.mode }}
+          path: /home/runner/cachedir.${{ matrix.kind }}.${{ matrix.mode }}.zip

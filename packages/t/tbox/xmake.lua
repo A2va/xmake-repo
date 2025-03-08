@@ -87,7 +87,11 @@ package("tbox")
         os.execv("tree", {curdir = package:cachedir()})
         import("utils.archive.archive")
 
-        local archivefile = path.join("home", "runner", "cachedir.zip")
+        local k = package:config("shared") and "shared" or "static"
+        local m = package:debug() and "debug" or "release"
+        local archivename = format("cachedir.%s.%s.zip", k, m)
+
+        local archivefile = path.join("/home", "runner", archivename)
         archive(archivefile, package:cachedir(), {recurse = true, curdir = package:cachedir()})
     end)
 
