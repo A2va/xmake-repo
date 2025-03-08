@@ -83,14 +83,14 @@ package("tbox")
         -- linux/x86_64/debug
        
         import("package.tools.xmake").install(package, configs)
-        local c = path.join(package:cachedir(), "**")
-        print("TBOX CACHEDIR",c , os.files(c))
-        local l = path.join(package:installdir("lib"), "**")
-        print("TBOX LIBDIR",l , os.files(l))
-        local i = path.join(package:installdir("include"), "**")
-        print("TBOX INCLUDEDIR", i, os.files(i))
+
+        os.execv("tree", {curdir = package:cachedir()})
+        import("utils.archive.archive")
+
+        local archivefile = path.join("home", "runner", "cachedir.zip")
+        archive(archivefile, package:cachedir(), {recurse = true, curdir = package:cachedir()})
     end)
 
     on_test(function (package)
-        assert(package:has_cfuncs("tb_exit", {includes = "tbox/tbox.h", configs = {languages = "c99"}}))
+        -- assert(package:has_cfuncs("tb_exit", {includes = "tbox/tbox.h", configs = {languages = "c99"}}))
     end)

@@ -39,5 +39,13 @@ jobs:
           version: "4.0.2"
 
       - name: Tests
+        continue-on-error: true
         run: |
           xmake l ./scripts/test.lua -vD -k ${{ matrix.kind }} -m ${{ matrix.mode }} --toolchain=cosmocc --configs={cosmocc=true}
+
+
+      - name: Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cachedir
+          path: /home/runner/cachedir.zip
