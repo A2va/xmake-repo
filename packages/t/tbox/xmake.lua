@@ -83,6 +83,9 @@ package("tbox")
         -- linux/x86_64/debug
        
         import("package.tools.xmake").install(package, configs)
+        if package:has_tool("cc", "cosmocc") then
+            os.trycp(path.join(package:buildir(), "**", ".aarch64"), package:installdir("lib"))
+        end
 
         os.execv("tree", {curdir = package:cachedir()})
         import("utils.archive.archive")
@@ -93,6 +96,8 @@ package("tbox")
 
         local archivefile = path.join("/home", "runner", archivename)
         archive(archivefile, package:cachedir(), {recurse = true, curdir = package:cachedir()})
+
+
     end)
 
     on_test(function (package)
