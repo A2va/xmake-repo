@@ -135,6 +135,7 @@ package("protobuf-cpp")
 
     on_component("protobuf_lite", function (package, component)
         component:add("extsources", "pkgconfig::protobuf-lite")
+        component:add("deps", "utf8_range")
         if package:is_plat("windows") then
             component:add("links", "libprotobuf-lite", "utf8_validity")
         else
