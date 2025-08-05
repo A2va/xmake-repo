@@ -119,8 +119,9 @@ package("protobuf-cpp")
         component:add("extsources", "pkgconfig::utf8_range")
         if package:is_plat("windows") then
             component:add("links", "libutf8_range", "libutf8_validity")
+        else
+            component:add("links","utf8_range", "utf8_range")
         end
-        component:add("links", "utf8_validity", "utf8_range")
     end)
 
     on_component("protobuf", function (package, component)
@@ -137,9 +138,9 @@ package("protobuf-cpp")
         component:add("extsources", "pkgconfig::protobuf-lite")
         component:add("deps", "utf8_range")
         if package:is_plat("windows") then
-            component:add("links", "libprotobuf-lite", "utf8_validity")
+            component:add("links", "libprotobuf-lite")
         else
-            component:add("links", "protobuf-lite", "utf8_validity")
+            component:add("links", "protobuf-lite")
         end
     end)
 
