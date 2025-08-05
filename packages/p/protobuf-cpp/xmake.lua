@@ -111,7 +111,7 @@ package("protobuf-cpp")
         end
 
         if package:config("lite") then
-            package:add("components", "protobuf-lite")
+            package:add("components", "protobuf_lite")
         end
     end)
     -- ref: https://github.com/conan-io/conan-center-index/blob/19c9de61cce5a5089ce42b0cf15a88ade7763275/recipes/protobuf/all/conanfile.py
@@ -133,7 +133,7 @@ package("protobuf-cpp")
         end
     end)
 
-    on_component("protobuf-lite", function (package, component)
+    on_component("protobuf_lite", function (package, component)
         component:add("extsources", "pkgconfig::protobuf-lite")
         if package:is_plat("windows") then
             component:add("links", "libprotobuf-lite", "utf8_validity")
