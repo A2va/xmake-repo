@@ -58,7 +58,7 @@ package("protobuf-cpp")
     end
 
     add_deps("cmake")
-    add_components("protobuf", "protoc", "utf8_range")
+    -- add_components("protobuf", "protoc", "utf8_range")
 
     on_load(function (package)
         -- Fix MSVC 2019 arm64 error LNK2019: unresolved external symbol __popcnt referenced in function _upb_log2_table_size
