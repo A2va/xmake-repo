@@ -106,13 +106,19 @@ package("protobuf-cpp")
             package:add("defines", "PROTOBUF_USE_DLLS")
         end
 
-        if package:config("upb") then
-            package:add("components", "upb")
+        -- if package:config("upb") then
+        --     package:add("components", "upb")
+        -- end
+
+        -- if package:config("lite") then
+        --     package:add("components", "protobuf_lite")
+        -- end
+        if package:is_plat("windows") then
+            package:add("links", "libprotobuf-lite", "libutf8_range", "libutf8_validity")
+        else
+            package:add("links", "protobuf-lite", "utf8_range", "utf8_validity")
         end
 
-        if package:config("lite") then
-            package:add("components", "protobuf_lite")
-        end
     end)
     -- ref: https://github.com/conan-io/conan-center-index/blob/19c9de61cce5a5089ce42b0cf15a88ade7763275/recipes/protobuf/all/conanfile.py
     on_component("utf8_range", function (package, component)

@@ -28,7 +28,7 @@ package("sentencepiece")
         table.insert(configs, "-DSPM_ABSL_PROVIDER=package")
         table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=package")
         -- table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=internal")
-        import("package.tools.cmake").install(package, configs, {packagedeps = {"abseil"}})
+        import("package.tools.cmake").install(package, configs, {packagedeps = {"abseil", "protobuf-cpp"}})
     end)
 
     on_test(function (package)
