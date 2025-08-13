@@ -26,8 +26,9 @@ package("sentencepiece")
         local configs = {}
         table.insert(configs, "-DSPM_ENABLE_SHARED=" .. (package:config("shared") and "ON" or "OFF"))
         table.insert(configs, "-DSPM_ABSL_PROVIDER=package")
-        table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=package")
-        import("package.tools.cmake").install(package, configs, {packagedeps = {"abseil", "protobuf-cpp"}})
+        -- table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=package")
+        table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=internal")
+        import("package.tools.cmake").install(package, configs, {packagedeps = {"abseil"}})
     end)
 
     on_test(function (package)
