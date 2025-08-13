@@ -7,7 +7,7 @@ package("sentencepiece")
              "https://github.com/google/sentencepiece.git")
 
     add_versions("v0.2.0", "9970f0a0afee1648890293321665e5b2efa04eaec9f1671fcf8048f456f5bb86")
-    add_deps("cmake", "abseil", "protobuf-cpp", "gperftools")
+    add_deps("cmake", "protobuf-cpp", "abseil", "gperftools")
  
     add_patches("v0.2.0", "patches/v0.2.0/absl-cmake-fix.patch", "80ad8e47841bf6729f921e4bf1a668ca867805422f87e8928124c8e88f77b65f")
 
@@ -28,7 +28,7 @@ package("sentencepiece")
         table.insert(configs, "-DSPM_ABSL_PROVIDER=package")
         table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=package")
         -- table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=internal")
-        import("package.tools.cmake").install(package, configs, {packagedeps = {"abseil", "protobuf-cpp"}})
+        import("package.tools.cmake").install(package, configs, {packagedeps = {"protobuf-cpp", "abseil"}})
     end)
 
     on_test(function (package)
