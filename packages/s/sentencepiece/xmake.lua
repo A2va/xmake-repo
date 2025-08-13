@@ -9,7 +9,7 @@ package("sentencepiece")
     add_versions("v0.2.0", "9970f0a0afee1648890293321665e5b2efa04eaec9f1671fcf8048f456f5bb86")
     add_deps("cmake", "abseil", "protobuf-cpp", "gperftools")
  
-    add_patches("v0.2.0", "patches/v0.2.0/absl-cmake-fix.patch", "8fcbe6f4b49972e624b1d61627d36c16e13946b168dd001b138e511febbc7ca4")
+    add_patches("v0.2.0", "patches/v0.2.0/absl-cmake-fix.patch", "80ad8e47841bf6729f921e4bf1a668ca867805422f87e8928124c8e88f77b65f")
 
     on_install("windows|!arm*", "linux", "macosx", function (package)
         -- replace abseil third_party include path by <absl/...>
@@ -26,8 +26,8 @@ package("sentencepiece")
         local configs = {}
         table.insert(configs, "-DSPM_ENABLE_SHARED=" .. (package:config("shared") and "ON" or "OFF"))
         table.insert(configs, "-DSPM_ABSL_PROVIDER=package")
-        -- table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=package")
-        table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=internal")
+        table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=package")
+        -- table.insert(configs, "-DSPM_PROTOBUF_PROVIDER=internal")
         import("package.tools.cmake").install(package, configs, {packagedeps = {"abseil"}})
     end)
 
