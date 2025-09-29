@@ -1,0 +1,38 @@
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index 21607e9..066b540 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -172,11 +172,6 @@ elseif (SPM_ABSL_PROVIDER STREQUAL "module")
+ elseif (SPM_ABSL_PROVIDER STREQUAL "package")
+   find_package(absl REQUIRED)
+   get_target_property(ABSL_INCLUDE_DIRS absl::base INTERFACE_INCLUDE_DIRECTORIES)
+-  if (NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/absl.org)
+-    file(RENAME ${CMAKE_CURRENT_SOURCE_DIR}/third_party/absl ${CMAKE_CURRENT_SOURCE_DIR}/third_party/absl.org)
+-    execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
+-        ${ABSL_INCLUDE_DIRS}/absl ${CMAKE_CURRENT_SOURCE_DIR}/third_party/absl)
+-  endif()
+   include_directories(${ABSL_INCLUDE_DIRS})
+ endif()
+ 
+diff --git i/src/CMakeLists.txt w/src/CMakeLists.txt
+index 2f70fd6..3416259 100644
+--- i/src/CMakeLists.txt
++++ w/src/CMakeLists.txt
+@@ -84,7 +84,6 @@ elseif (SPM_PROTOBUF_PROVIDER STREQUAL "package")
+ endif()
+ 
+ include_directories(${CMAKE_CURRENT_BINARY_DIR})
+-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../third_party)
+ 
+ if (MSVC)
+   add_definitions("/D_USE_INTERNAL_STRING_VIEW")
+diff --git i/third_party/CMakeLists.txt w/third_party/CMakeLists.txt
+index d00ecba..5f34616 100644
+--- i/third_party/CMakeLists.txt
++++ w/third_party/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-include_directories(absl/strings darts_clone esaxx protobuf-lite)
++include_directories(darts_clone esaxx)
+ 
+ 
+ 
